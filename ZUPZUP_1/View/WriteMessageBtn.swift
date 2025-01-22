@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WriteMessage: View {
+struct WriteMessageBtn: View {
   var body: some View {
     Button(action: {
         print("아이콘 버튼 클릭!")
@@ -22,9 +22,9 @@ struct WriteMessage: View {
   }
 }
 
-struct WriteMessage_Previews: PreviewProvider {
+struct WriteMessageBtn_Previews: PreviewProvider {
   static var previews: some View {
-    WriteMessage()
+    WriteMessageBtn()
       .previewLayout(.sizeThatFits)  // 크기 자동 조정
       .padding()
   }
