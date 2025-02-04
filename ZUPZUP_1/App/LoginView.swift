@@ -14,12 +14,18 @@ struct LoginView: View {
     @State private var password: String = ""
     
     var body: some View {
-        VStack(alignment:.leading,spacing: 10) {
+        VStack(alignment:.leading) {
             // 앱 로고
-            Image("Logo")
-                .resizable()
-                .frame(width: 100, height: 40)
-                .padding(.bottom)
+
+            HStack{
+                Spacer()
+                Image("Logo")
+                    .resizable()
+                    .frame(width: 100, height: 40)
+                Spacer()
+                
+            }
+                
             
             // 사용자 이름 입력 필드
             TextField("아이디를 입력해주세요", text: $username)
@@ -73,13 +79,72 @@ struct LoginView: View {
                 Spacer()
             }
                 .padding(.top,20)
-            Spacer()
+
+            HStack{
+                Rectangle()
+                    .frame(height: 1)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(Color.gray.opacity(0.5))
+                Text("or")
+                    .foregroundColor(Color.gray.opacity(0.5))
+                Rectangle()
+                    .frame(height: 1)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(Color.gray.opacity(0.5))
+                
+            }
+            .padding()
+            AppleSigninButton()
+                .padding(.top)
+                .padding(.horizontal)
+                .padding(.bottom)
+            HStack{
+                Spacer()
+                Text("계정이 없으신가요? ")
+                    .foregroundColor(Color.gray)
+                    .padding(.leading)
+                    .font(.system(size: 16))
+                NavigationLink(destination: LoginView()){
+                    Text("회원가입하기")
+                        .foregroundColor(Color.black.opacity(0.5))
+                        .font(.system(size: 15.5))
+                        .fontWeight(.semibold)
+                }
+                Spacer()
+            }
         }
         .padding()
     }
 }
 
+struct AppleSigninButton: View{
+    var body: some View{
+        SignInWithAppleButton(.continue, onRequest: {request in request.requestedScopes=[.fullName,.email] }, onCompletion: {
+            result in switch result{
+            case .success(let authResults):
+                (print("success"))
+                switch authResults.credential{
+                case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                    let UserIdentifier = appleIDCredential.user
+                    let fullName = appleIDCredential.fullName
+                    let email = appleIDCredential.email
+                    let IdentityToken=String(data: appleIDCredential.identityToken!, encoding: .utf8)
+                    let AuthorizationCode=String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
+                    
+                   
+                default:
+                    print("Unsupported credential type")
+                    
+                }
+            case .failure(let error ): print(error)
+            }
+        })
 
+        .frame(width : UIScreen.main.bounds.width * 0.85, height:50)
+                .cornerRadius(5)
+                
+    }
+}
 
 #Preview {
     LoginView()
