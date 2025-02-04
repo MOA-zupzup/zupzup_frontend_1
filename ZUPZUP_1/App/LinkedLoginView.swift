@@ -35,34 +35,7 @@ struct LinkedLoginView: View {
         
     }
 }
-struct AppleSigninButton: View{
-    var body: some View{
-        SignInWithAppleButton(onRequest: {request in request.requestedScopes=[.fullName,.email] }, onCompletion: {
-            result in switch result{
-            case .success(let authResults):
-                (print("success"))
-                switch authResults.credential{
-                case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                    let UserIdentifier = appleIDCredential.user
-                    let fullName = appleIDCredential.fullName
-                    let email = appleIDCredential.email
-                    let IdentityToken=String(data: appleIDCredential.identityToken!, encoding: .utf8)
-                    let AuthorizationCode=String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
-                    
-                   
-                default:
-                    print("Unsupported credential type")
-                    
-                }
-            case .failure(let error ): print(error)
-            }
-        })
 
-        .frame(width : UIScreen.main.bounds.width * 0.9, height:50)
-                .cornerRadius(5)
-                
-    }
-}
 #Preview {
     LinkedLoginView()
 }
