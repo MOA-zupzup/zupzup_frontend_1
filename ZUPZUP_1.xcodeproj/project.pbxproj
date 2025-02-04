@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ABF070512D527A9F006CE4D6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ABF070502D527A9F006CE4D6 /* FirebaseAuth */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C6EC13EB2D3D48DE0092302A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABF070512D527A9F006CE4D6 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = ZUPZUP_1;
 			packageProductDependencies = (
+				ABF070502D527A9F006CE4D6 /* FirebaseAuth */,
 			);
 			productName = ZUPZUP_1;
 			productReference = C6EC13DA2D3D48DC0092302A /* ZUPZUP_1.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = C6EC13D12D3D48DC0092302A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				ABF0704D2D527478006CE4D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C6EC13DB2D3D48DC0092302A /* Products */;
 			projectDirPath = "";
@@ -393,9 +402,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZUPZUP_1/ZUPZUP_1.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZUPZUP_1/Preview Content\"";
+				DEVELOPMENT_TEAM = FB5M8437T9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -422,9 +433,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZUPZUP_1/ZUPZUP_1.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZUPZUP_1/Preview Content\"";
+				DEVELOPMENT_TEAM = FB5M8437T9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -554,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ABF0704D2D527478006CE4D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ABF070502D527A9F006CE4D6 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABF0704D2D527478006CE4D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C6EC13D22D3D48DC0092302A /* Project object */;
 }

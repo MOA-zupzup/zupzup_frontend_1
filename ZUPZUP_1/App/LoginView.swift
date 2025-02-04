@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import AuthenticationServices
 
 struct LoginView: View {
     @State private var username: String = ""
@@ -13,12 +15,11 @@ struct LoginView: View {
     
     var body: some View {
         VStack(alignment:.leading,spacing: 10) {
-            // 앱 제목
-            Text("로그인")
-                .padding(.horizontal,15)
-                .font(.title2)
-                .fontWeight(.bold)
-                .padding(.top,70)
+            // 앱 로고
+            Image("Logo")
+                .resizable()
+                .frame(width: 100, height: 40)
+                .padding(.bottom)
             
             // 사용자 이름 입력 필드
             TextField("아이디를 입력해주세요", text: $username)
@@ -77,6 +78,8 @@ struct LoginView: View {
         .padding()
     }
 }
+
+
 
 #Preview {
     LoginView()
