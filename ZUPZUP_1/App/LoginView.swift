@@ -12,108 +12,119 @@ import AuthenticationServices
 struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var isLaunch: Bool = true
     
     var body: some View {
-        VStack(alignment:.leading) {
-            // 앱 로고
-
-            HStack{
-                Spacer()
-                Image("Logo")
-                    .resizable()
-                    .frame(width: 100, height: 40)
-                Spacer()
+        if isLaunch{
+            LaunchView()
+                .onAppear{
+                    DispatchQueue.main.asyncAfter(deadline: .now()+3){
+                        self.isLaunch = false
+                    }
+                }
+            
+        }else{
+            VStack(alignment:.leading) {
+                // 앱 로고
                 
-            }
+                HStack{
+                    Spacer()
+                    Image("Logo")
+                        .resizable()
+                        .frame(width: 100, height: 40)
+                    Spacer()
+                    
+                }
                 
-            
-            // 사용자 이름 입력 필드
-            TextField("아이디를 입력해주세요", text: $username)
-                .frame(height:25)
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray, lineWidth: 1) )
-                .padding(.horizontal, 15)
-                .padding(.top,50)
-            
-            // 비밀번호 입력 필드
-            SecureField("비밀번호를 입력해주세요", text: $password)
-                .frame(height:25)
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray, lineWidth: 1) )
-
-                .padding(.horizontal, 15)
-
-            
-            // 로그인 버튼
-            Button(action: {
-                print("로그인 버튼 눌림: \(username), \(password)")
-            }) {
-                Text("로그인")
+                
+                // 사용자 이름 입력 필드
+                TextField("아이디를 입력해주세요", text: $username)
                     .frame(height:25)
-                    .font(.headline)
-                    .foregroundColor(Color.white)
                     .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(username.isEmpty || password.isEmpty ? Color.gray : Color.black)
-                    .cornerRadius(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray, lineWidth: 1) )
                     .padding(.horizontal, 15)
-                    .padding(.top,10)
-            }
-            .disabled(username.isEmpty || password.isEmpty)
-            //아이디 및 비밀번호 찾기
-            HStack(alignment: .center, spacing: 10) {
-                Spacer()
-                Text("아이디 찾기")
-                    .foregroundColor(Color.gray)
-                    .padding(.horizontal,10)
-                Divider()
-                    .frame(width:1, height: 20)
-                    .background(Color.gray)
-                Text("비밀번호 찾기")
-                    .foregroundColor(Color.gray)
-                    .padding(.horizontal,10)
-                Spacer()
-            }
-                .padding(.top,20)
-
-            HStack{
-                Rectangle()
-                    .frame(height: 1)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(Color.gray.opacity(0.5))
-                Text("or")
-                    .foregroundColor(Color.gray.opacity(0.5))
-                Rectangle()
-                    .frame(height: 1)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(Color.gray.opacity(0.5))
+                    .padding(.top,50)
                 
+                // 비밀번호 입력 필드
+                SecureField("비밀번호를 입력해주세요", text: $password)
+                    .frame(height:25)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray, lineWidth: 1) )
+                
+                    .padding(.horizontal, 15)
+                
+                
+                // 로그인 버튼
+                Button(action: {
+                    print("로그인 버튼 눌림: \(username), \(password)")
+                }) {
+                    Text("로그인")
+                        .frame(height:25)
+                        .font(.headline)
+                        .foregroundColor(Color.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(username.isEmpty || password.isEmpty ? Color.gray : Color.black)
+                        .cornerRadius(8)
+                        .padding(.horizontal, 15)
+                        .padding(.top,10)
+                }
+                .disabled(username.isEmpty || password.isEmpty)
+                //아이디 및 비밀번호 찾기
+                HStack(alignment: .center, spacing: 10) {
+                    Spacer()
+                    Text("아이디 찾기")
+                        .foregroundColor(Color.gray)
+                        .padding(.horizontal,10)
+                    Divider()
+                        .frame(width:1, height: 20)
+                        .background(Color.gray)
+                    Text("비밀번호 찾기")
+                        .foregroundColor(Color.gray)
+                        .padding(.horizontal,10)
+                    Spacer()
+                }
+                .padding(.top,20)
+                
+                HStack{
+                    Rectangle()
+                        .frame(height: 1)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color.gray.opacity(0.5))
+                    Text("or")
+                        .foregroundColor(Color.gray.opacity(0.5))
+                    Rectangle()
+                        .frame(height: 1)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color.gray.opacity(0.5))
+                    
+                }
+                .padding()
+                AppleSigninButton()
+                    .padding(.top)
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                HStack{
+                    Spacer()
+                    Text("계정이 없으신가요? ")
+                        .foregroundColor(Color.gray)
+                        .padding(.leading)
+                        .font(.system(size: 16))
+                    NavigationLink(destination: LoginView()){
+                        Text("회원가입하기")
+                            .foregroundColor(Color.black.opacity(0.5))
+                            .font(.system(size: 15.5))
+                            .fontWeight(.semibold)
+                    }
+                    Spacer()
+                }
             }
             .padding()
-            AppleSigninButton()
-                .padding(.top)
-                .padding(.horizontal)
-                .padding(.bottom)
-            HStack{
-                Spacer()
-                Text("계정이 없으신가요? ")
-                    .foregroundColor(Color.gray)
-                    .padding(.leading)
-                    .font(.system(size: 16))
-                NavigationLink(destination: LoginView()){
-                    Text("회원가입하기")
-                        .foregroundColor(Color.black.opacity(0.5))
-                        .font(.system(size: 15.5))
-                        .fontWeight(.semibold)
-                }
-                Spacer()
-            }
         }
-        .padding()
     }
 }
 
