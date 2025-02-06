@@ -61,7 +61,7 @@ struct LoginView: View {
                     .background(username.isEmpty || password.isEmpty ? Color.gray : Color.black)
                     .cornerRadius(8)
                     .padding(.horizontal, 15)
-                    .padding(.top,25)
+                    .padding(.top,10)
             }
             .disabled(username.isEmpty || password.isEmpty)
             //아이디 및 비밀번호 찾기
