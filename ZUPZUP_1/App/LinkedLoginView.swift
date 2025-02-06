@@ -15,7 +15,6 @@ struct LinkedLoginView: View {
                 AppleSigninButton()
                     .padding(.top)
                     .padding(.bottom)
-              
                 HStack{
                     Text("계정이 없으신가요? ")
                         .foregroundColor(Color.gray)
