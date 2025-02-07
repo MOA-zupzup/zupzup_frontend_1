@@ -9,18 +9,19 @@ import SwiftUI
 
 struct MailboxView: View {
   var body: some View {
-    ScrollView {
-      LazyVStack {
-        ForEach(1...1000, id: \.self) { index in
-          Text("아이템 \(index)")
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(Color.blue.opacity(0.2))
-            .cornerRadius(8)
-            .padding(.horizontal)
+      VStack{
+          HStack(){
+              Text("취소")
+              Spacer()
+              Text("편지 작성하기")
+                  .fontWeight(.bold)
+              Spacer()
+              Button("다음"){
+                  
+              }
+          }
+              
         }
-      }
-    }
   }
 }
 

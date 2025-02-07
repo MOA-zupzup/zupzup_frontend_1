@@ -27,15 +27,28 @@ struct MessageWritingView: View {
                 Text("편지 작성하기")
                     .fontWeight(.bold)
                 Spacer()
-                Button("다음"){
+                Button(action:{
                     saveMemo(text: memoText)
+                }){
+                    Text("다음")
+                        .foregroundColor(Color("CustomGreen"))
                 }
                 
             }
             .padding()
+        
             Spacer()
-            Text("\(formatter.string(from: now))")
+            HStack{
+                Text("\(formatter.string(from: now))")
+                    .font(.system(size: 15, weight: .light, design: .rounded))
+                    .foregroundStyle(Color.gray)
+                Spacer()
+            }
+            .padding(.top,30)
+            .padding(.horizontal,20)
+            
             TextEditor(text:$memoText)
+                .tint(Color("CustomGreen"))
                 .padding(.horizontal)
         }
     }
