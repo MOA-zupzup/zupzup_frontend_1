@@ -12,7 +12,7 @@ struct MessageWritingView: View {
     let now = Date()
     let formatter: DateFormatter = {
         let f = DateFormatter()
-        f.dateFormat = "yyyy년 MM월 dd일"
+        f.dateFormat = "yyyy.MM.dd"
         f.locale = Locale(identifier: "ko_KR")
         return f
     }()

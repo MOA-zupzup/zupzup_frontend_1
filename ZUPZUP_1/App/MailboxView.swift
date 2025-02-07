@@ -10,18 +10,55 @@ import SwiftUI
 struct MailboxView: View {
   var body: some View {
       VStack{
-          HStack(){
-              Text("취소")
-              Spacer()
-              Text("편지 작성하기")
-                  .fontWeight(.bold)
-              Spacer()
-              Button("다음"){
+          VStack{
+              
+              HStack(){
+                  Text("취소")
+                      .foregroundStyle(Color.gray)
+                  Spacer()
+                  Text("봉투 꾸미기")
+                      .fontWeight(.bold)
+                      .foregroundStyle(Color("CustomDark"))
+                  Spacer()
+                  Button(action:{
+                      
+                  }){
+                      Text("완료")
+                          .foregroundColor(Color("CustomGreen"))
+                  }
+              }
+              .padding()
+              .padding(.bottom,10)
+              Image("Example")
+                  .resizable()
+                  .frame(width: 320, height: 180)
+                  .padding()
+              
+              
+              
+              
+          }
+          .background(Color("CustomBeige"))
+          Spacer()
+          VStack{
+              Text("테마 선택")
+                  .font(.system(size: 20, weight: .regular, design: .rounded))
+              HStack{
+                  VStack{
+                      Image("Example")
+                          .resizable()
+                          .frame(width:146, height:82)
+                          .padding()
+                      Text("기본 테마")
+                          .foregroundStyle(Color.gray)
+                  }
+                  Button(action:{}){
+                      Image(systemName:"plus.app")
+                  }
                   
               }
           }
-              
-        }
+      }
   }
 }
 
