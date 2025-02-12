@@ -13,8 +13,6 @@ struct MainView: View {
       TabView {
         ContentView()
           .tabItem { Label ("지도", systemImage: "map")}
-        MailboxView()
-          .tabItem { Label ("우편함", systemImage: "envelope")}
         StoreView()
           .tabItem { Label ("상점", systemImage: "cart")}
         MypageView()
