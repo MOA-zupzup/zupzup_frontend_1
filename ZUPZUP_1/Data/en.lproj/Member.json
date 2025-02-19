@@ -1,0 +1,9 @@
+[
+  {
+    "user_id": 123,
+    "nickname": "승우",
+    "email": "seungwoo@example.com",
+    "coin": 50,
+    "phase": "level1"
+  }
+]

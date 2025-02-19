@@ -1,0 +1,16 @@
+[
+  {
+    "letter_id": 1,
+    "sender_id": 123,
+    "receiver_id": 456,
+    "paper_id": 5,
+    "title": "안녕하세요!",
+    "content": "이 편지를 받게 되었다면 행운이 따를 거예요.",
+    "locate": "37.5665, 126.9780",
+    "createdAt": "2025-02-19T12:00:00Z",
+    "status": "unread",
+    "picture_url": "https://example.com/image.jpg",
+    "paper_url": "https://example.com/paper.jpg",
+    "Mailbox": "my-mailbox"
+  }
+]
