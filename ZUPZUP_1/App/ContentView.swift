@@ -23,7 +23,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         naverMapView.showZoomControls = true
         view.addSubview(naverMapView)
         
-
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -31,12 +30,16 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             print("위치 서비스 On 상태")
             locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
         } else {
             print("위치 서비스 Off 상태")
         }
+
+        marker.iconImage = NMFOverlayImage(name: "custom_marker")
+        marker.width = 33
+        marker.height = 20
     }
     
- 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
@@ -47,7 +50,16 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         naverMapView.mapView.moveCamera(cameraUpdate)
         
         marker.position = NMGLatLng(lat: location.coordinate.latitude, lng: location.coordinate.longitude)
-        marker.mapView = naverMapView.mapView
+        if marker.mapView == nil {
+            marker.mapView = naverMapView.mapView
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        let heading = newHeading.trueHeading
+        
+        print("사용자 방향: \(heading)도")
+        marker.angle = CGFloat(Float(heading))
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -67,3 +79,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
