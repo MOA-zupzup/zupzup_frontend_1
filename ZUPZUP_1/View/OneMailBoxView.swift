@@ -7,55 +7,83 @@
 
 import SwiftUI
 
-struct OneMailboxView: View {
+struct OneMailBoxView: View {
+  let letter: Letter
+  @State private var showActionSheet = false // ✅ 모달 표시 여부
+  
   var body: some View {
     HStack {
-      Circle()
-        .frame(width: 85, height: 85)
-      Spacer()
-        .frame(width: 25)
-      VStack(alignment: .leading, spacing: 5) {
-        Text("강승우")
-          .font(.system(size: 24, weight: .bold))
+      VStack(alignment: .leading, spacing: 4) {
+        Text(letter.title)
+          .font(.body)
+          .fontWeight(.light)
+          .foregroundColor(.black)
         
-        HStack {
-          HStack {
-            Text("주고 받은 편지")
-              .font(.system(size: 15, weight: .bold))
-              .foregroundColor(.customGreen)
-            Image(systemName: "envelope")
-              .foregroundColor(.customGreen)
-              .padding(2)
-          }
-          .padding(5)
-          .background(Color.customGreen.opacity(0.1))
-          .cornerRadius(5)
-          Text("3건")
-            .foregroundColor(.gray)
-        }
+        Text(formatDate(letter.createdAt))
+          .font(.subheadline)
+          .foregroundColor(Color.customCoral.opacity(0.8))
       }
-      .padding(.trailing, 50)
+      Spacer()
       
       Button(action: {
-        print("버튼 눌림")
+        showActionSheet.toggle() // ✅ 버튼 클릭 시 모달 표시
       }) {
         Image(systemName: "ellipsis")
-          .resizable()
-          .scaledToFit()
-          .frame(width: 18, height: 12)
-          .foregroundColor(.customDark)
+          .foregroundColor(.gray)
       }
-      .padding(.bottom, 50)
-      
+      .padding(.top, -15)
+    }
+    .padding()
+    .background(Color.white)
+    .cornerRadius(8)
+    .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 2)
+    .confirmationDialog("옵션 선택", isPresented: $showActionSheet, titleVisibility: .visible) { // ✅ 모달 추가
+      Button("삭제하기", role: .destructive) {
+        print("편지 삭제")
+        // ⚠️ 삭제 기능 추가 가능
+      }
+      Button("취소하기", role: .cancel) { }
     }
   }
 }
 
-struct OneMailboxView_Previews: PreviewProvider {
-  static var previews: some View {
-    OneMailboxView()
-      .previewLayout(.sizeThatFits)
-      .padding()
+// 날짜 포맷 변환 함수
+func formatDate(_ dateString: String) -> String {
+  let inputFormatter = DateFormatter()
+  inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+  inputFormatter.locale = Locale(identifier: "en_US_POSIX")  // ✅ 수정
+  inputFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+  
+  let outputFormatter = DateFormatter()
+  outputFormatter.dateFormat = "yyyy.MM.dd"
+  outputFormatter.locale = Locale(identifier: "ko_KR")
+  
+  if let date = inputFormatter.date(from: dateString) {
+    return outputFormatter.string(from: date)
+  } else {
+    print("❌ 날짜 변환 실패: \(dateString)")  // ✅ 디버깅 추가
+    return dateString
   }
 }
 
+
+struct OneMailBoxView_Previews: PreviewProvider {
+  static var previews: some View {
+    OneMailBoxView(letter: Letter(
+      id: 1,
+      senderId: 123,
+      receiverId: 456,
+      paperId: 5,
+      title: "안녕하세요!",
+      content: "이 편지를 받게 되었다면 행운이 따를 거예요.",
+      location: "37.5665, 126.9780",
+      createdAt: "2025-02-19T12:00:00Z",
+      status: "unread",
+      pictureUrl: "https://example.com/image.jpg",
+      paperUrl: "https://example.com/paper.jpg",
+      mailbox: "my-mailbox"
+    ))
+    .previewLayout(.sizeThatFits)
+    .padding()
+  }
+}
