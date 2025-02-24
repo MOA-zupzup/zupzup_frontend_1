@@ -69,10 +69,37 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
 
 struct ContentView: View {
     var body: some View {
-        NaverMapView()
-            .edgesIgnoringSafeArea(.all)
+        TabView {
+            ZStack {
+                NaverMapView()
+            }
+            .tabItem {
+                Image(systemName: "map")
+                Text("지도")
+            }
+            
+            MailboxView()
+                .tabItem {
+                    Image(systemName: "envelope")
+                    Text("우편")
+                }
+            
+            StoreView()
+                .tabItem {
+                    Image(systemName: "storefront")
+                    Text("상점")
+                }
+            
+            MypageView()
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("마이페이지")
+                }
+        }
+        .ignoresSafeArea(edges: [.top])
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
